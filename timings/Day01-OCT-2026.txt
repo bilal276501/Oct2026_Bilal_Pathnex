@@ -1,4 +1,4 @@
 20 mins - Created  AWS account
 2 hours 30 mins - Launched EC2 instance,installed PuTTY, connected EC2 instance with Windows using .ppk file, installed git on aws instance, added contributor in github, created directories in git
 30 mins - ip address, domain, OSI Layer
-
+10 mins - pushed code to git repo10 mins - pushed code to git repo10 mins - pushed code to git repo
