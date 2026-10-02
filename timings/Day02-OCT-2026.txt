@@ -1,0 +1,4 @@
+1 hour - learned basic git commands like ls,vim,cd,pwd,rm,mkdir,rmdir,touch,cat,chmod,whoami,etc 
+15 min - explored hardlink and softlink
+1 hour -  explored how to create owner,add owner root group,how to change hostname,etc
+15 mins - created new branch and pushed code to git repo
