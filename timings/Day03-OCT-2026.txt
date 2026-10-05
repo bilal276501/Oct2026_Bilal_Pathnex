@@ -1,0 +1,4 @@
+1 hour : Learned basic commands of linux like whoami,uname,ssh,scp,grep,ps,kill,pgrep,tar,gzip,zip,umask,du,df,kill,pkill,free,uptime,iscpu,lscpu,lsusb,ifconfig,ping,netstat,wget,curl,ping
+learned differences about TCP and UDP,Load average in top cmd.
+3 hour : Watched pathnex youtube video on DevOps Linux Scripting in 2 Hours | Bash Automation | Minimum 18 LPA
+15 mins - created new branch and pushed code to git repo 
