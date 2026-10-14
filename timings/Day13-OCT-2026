@@ -1,0 +1,3 @@
+3 hours : Watched today class video on kuberenetes part 3 and learned about service, types of service, readiness probe, liveness probe, imagepullpolocy and it's types, what happens when one worker node is rebooted then what happens to the pods.
+15 mins : created new branch and pushed code to git repo
+2 hours 30 mins : watched video kubernetes upgrade without downtime
