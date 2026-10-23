@@ -1,0 +1,7 @@
+5 Hours : Watched today's video and gained knowledge on what is Monitoring?, Horse analogy, created eks cluster using terraform, installed full kube-prometheus-stack with Helm in a monitoring namespace, convert grafana from cluster ip to nodeport service, added prometheus as datasource in grafana using prometheus service name on port 9090 and imported ready-made Kubernetes dashboards.
+done troubleshooting on worker nodes 
+	Worerker Nodes were not able to register into master node as in security group they were not added.so added them Once I added inbound rules for both, the nodes registered and went Ready. 
+done troubleshooting on Grafana cannot reach Prometheus
+	In kube-system there were no CoreDNS pods, and the add-on showed Degraded.so removed it from Terraform state, and also from aws add ons UI, recreated the add-on
+Executed cpu-strees.yaml and memory-stress.yaml in monitoring-lab namespace, watched CPU climb on the dashboard. The namespace-wise panel showed which namespace was consuming it
+15 mins : created new branch and pushed code to git repo
