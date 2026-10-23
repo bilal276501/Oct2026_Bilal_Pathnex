@@ -1,0 +1,4 @@
+5 Hours : Watched todays class and gained knowledge on ELK, Why we need ELK, Logging Shipper tool Filebeat, how the log is collected, then logstash recievs the log and then does the data processing like  processing, parsing, filtering, transforming log and then send it to ElasticSearch then ElasticSearch stores the logs in json document inside index and in inside multiple partions are created called shards, it also creates replica of the data as even if data is lost we will have copy of that data, it stores the data by timeline like past week, past mothn. so that we can spend cost on the data that is more important to us.then these logs are displayed in Kibana in form of Log Monitoring, Data Visualization in form of charts, pice charts, graphs, etc.
+Kibana is efficient for log monitoring.
+Grafana is efficient for Metrics monitoring.
+15 mins : created new branch and pushed code to git repo

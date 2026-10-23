@@ -1,0 +1,108 @@
+- name: Deploy Nginx across multiple Kubernetes clusters
+  hosts: localhost
+  tasks:
+  - name: Deploy Nginx on Mumbai Cluster
+   command: kubectl --context=mumbai-cluster apply -f kubernetes/deployment.yaml
+
+  - name: Deploy Nginx on US West Cluster
+   command: kubectl --context=us-west-cluster apply -f kubernetes/deployment.yaml
+provider "aws" {
+  region = "ap-south-1"
+}
+
+provider "google" {
+  project = var.gcp_project_id
+  region  = "us-central1"
+}
+
+resource "aws_eks_cluster" "pathnex_eks" {
+  name     = "pathnex-mumbai-eks"
+  role_arn = aws_iam_role.eks_cluster_role.arn
+
+  vpc_config {
+    subnet_ids = [aws_subnet.pathnex_subnet.id]
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.eks_cluster_role_policy
+  ]
+}
+
+resource "google_container_cluster" "pathnex_gke" {
+  name               = "pathnex-gke-cluster"
+  location           = "us-central1-a"
+  initial_node_count = 3
+
+  node_config {
+    machine_type = "n1-standard-1"
+  }
+}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pathnex-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pathnex-app
+  template:
+    metadata:
+      labels:
+        app: pathnex-app
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy to Mumbai Cluster') {
+            steps {
+                script {
+                    sh 'kubectl --context=mumbai-cluster apply -f kubernetes/deployment.yaml'
+                }
+            }
+        }
+
+        stage('Deploy to US West Cluster') {
+            steps {
+                script {
+                    sh 'kubectl --context=us-west-cluster apply -f kubernetes/deployment.yaml'
+                }
+            }
+        }
+    }
+}
+stages:
+  - deploy
+
+deploy_mumbai:
+  stage: deploy
+  script:
+    - kubectl --context=mumbai-cluster apply -f kubernetes/deployment.yaml
+
+deploy_us_west:
+  stage: deploy
+  script:
+    - kubectl --context=us-west-cluster apply -f kubernetes/deployment.yamlservices:
+  db:
+    image: mysql:8
+    container_name: pathnex-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: pathnex
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    image: nginx
+    container_name: pathnex-web
+    ports:
+      - "8080:80"
+
+volumes:
+  mysql_data:
