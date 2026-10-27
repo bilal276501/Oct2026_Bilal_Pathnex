@@ -1,0 +1,56 @@
+#DAY 27
+-name : Deploying Serverless Lambda Function
+ hosts : localhost
+ tasks : 
+   - name : Creating Lambda Function
+     command : aws lambda create-function --function-name pathnex-lambda --runtime nodejs14.x --role arn:aws:11aa22bb33cc:role/lambda-role --handler index.handler --zip-file://lambda.zip
+
+#Terraform
+resource "aws_dynamodb_table" "pathnex_table" {
+  name = "pathnex-table"
+  has_key ="id"
+  billing_mode = "PAY_PER_REQUEST"
+  attribute {
+    name = "id"
+    type ="S"
+}
+}
+
+#K8S
+apiVersion : kubesless.io/v1beta1
+metadata : 
+  name :  pathnex-lambda
+  namespace : default
+spec: 
+  runtime : nodejs14
+  handler : index.handler
+  function : |
+    module.exports = function(event, context) {
+      context.succed('Hello World');
+};
+
+#JenkinsFile
+pipeline {
+    agent any 
+    stages {
+       stage('Building')
+	  steps {
+		echo 'Building Lmabda Function Package'
+		sh 'zip -r lambda.zimp lambda/'
+}
+}  
+        stage('Deploying to Lmabda') {
+	    steps{
+		script {
+		    sh 'aws lambda update-function-code --function-name pathnex-lambda --zip-file fileb://lambda.zip'
+}
+}
+}
+}
+}
+
+#Docker
+docker exec -it pathnex-nginx bash
+docker stats
+
+docker run -d --memory="512m" --cpus="1.0" nginx
